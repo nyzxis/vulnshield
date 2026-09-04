@@ -67,16 +67,16 @@ ${result.security_headers.map(h => `- ${h.header}: ${h.present ? 'IMPLEMENTED' :
       >
         {/* Modal Header */}
         <div
-          className={`p-5 border-b flex items-center justify-between ${
+          className={`p-4 sm:p-5 border-b flex flex-wrap items-center justify-between gap-3 ${
             isMinimal ? 'border-[#D8D2C5]' : 'border-white/10'
           }`}
         >
-          <div className="flex items-center gap-2.5">
+          <div className="flex items-center gap-2 min-w-0 flex-1">
             <FileText
-              className={`w-4 h-4 ${isMinimal ? 'text-[#2C2924]' : 'text-emerald-400'}`}
+              className={`w-4 h-4 shrink-0 ${isMinimal ? 'text-[#2C2924]' : 'text-emerald-400'}`}
             />
             <h3
-              className={`font-mono font-bold text-sm ${
+              className={`font-mono font-bold text-xs sm:text-sm truncate ${
                 isMinimal ? 'text-[#2C2924]' : 'text-white'
               }`}
             >
@@ -84,10 +84,10 @@ ${result.security_headers.map(h => `- ${h.header}: ${h.present ? 'IMPLEMENTED' :
             </h3>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
             <button
               onClick={handleCopyMarkdown}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg border text-xs font-mono transition-all active:scale-95 ${
+              className={`flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-lg border text-[11px] sm:text-xs font-mono transition-all active:scale-95 ${
                 copied
                   ? 'bg-emerald-500/20 border-emerald-500/40 text-emerald-300'
                   : isMinimal
@@ -96,19 +96,20 @@ ${result.security_headers.map(h => `- ${h.header}: ${h.present ? 'IMPLEMENTED' :
               }`}
             >
               {copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
-              <span>{copied ? 'Copied' : 'Copy Markdown'}</span>
+              <span className="hidden xs:inline sm:inline">{copied ? 'Copied' : 'Copy Markdown'}</span>
+              <span className="xs:hidden sm:hidden">{copied ? 'Copied' : 'Copy'}</span>
             </button>
 
             <button
               onClick={handlePrint}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg border text-xs font-mono transition-all active:scale-95 ${
+              className={`flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-lg border text-[11px] sm:text-xs font-mono transition-all active:scale-95 ${
                 isMinimal
                   ? 'bg-[#2C2924] text-[#F4F1EA]'
                   : 'bg-emerald-500/20 border-emerald-500/40 text-emerald-300 hover:bg-emerald-500/30'
               }`}
             >
               <Printer className="w-3.5 h-3.5" />
-              <span>Print / PDF</span>
+              <span>Print</span>
             </button>
 
             <button
@@ -125,24 +126,24 @@ ${result.security_headers.map(h => `- ${h.header}: ${h.present ? 'IMPLEMENTED' :
         </div>
 
         {/* Scrollable Report Content */}
-        <div className="p-6 overflow-y-auto space-y-6 font-mono text-xs">
+        <div className="p-4 sm:p-6 overflow-y-auto space-y-6 font-mono text-xs">
           {/* Executive Overview Box */}
           <div
-            className={`p-4 rounded-2xl border flex flex-col sm:flex-row items-center justify-between gap-4 ${
+            className={`p-4 rounded-2xl border flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 ${
               isMinimal ? 'bg-[#EAE5DB] border-[#D8D2C5]' : 'bg-white/5 border-white/10'
             }`}
           >
-            <div>
+            <div className="min-w-0 w-full flex-1">
               <span className="text-[10px] uppercase text-white/40 block">Evaluated Target</span>
-              <span className="text-sm font-bold block truncate max-w-md">{result.target}</span>
+              <span className="text-xs sm:text-sm font-bold block truncate max-w-full">{result.target}</span>
               <span className="text-[10px] text-white/50 block mt-1">
                 Mode: {result.scan_mode} • Duration: {result.duration_seconds}s
               </span>
             </div>
 
-            <div className="text-center sm:text-right">
+            <div className="text-left sm:text-right shrink-0">
               <span className="text-[10px] uppercase text-white/40 block">Final Rating</span>
-              <span className="text-2xl font-black">{result.score}/100 (GRADE {result.grade})</span>
+              <span className="text-xl sm:text-2xl font-black">{result.score}/100 (GRADE {result.grade})</span>
             </div>
           </div>
 

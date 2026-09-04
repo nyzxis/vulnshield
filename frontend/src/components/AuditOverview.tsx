@@ -123,14 +123,14 @@ export default function AuditOverview({
             isMinimal ? 'border-[#D8D2C5]' : 'border-white/10'
           }`}
         >
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 min-w-0 max-w-full">
             <Globe
               className={`w-4 h-4 shrink-0 ${
                 isMinimal ? 'text-[#2C2924]' : 'text-emerald-400'
               }`}
             />
             <span
-              className={`text-xs font-mono truncate ${
+              className={`text-xs font-mono truncate min-w-0 flex-1 ${
                 isMinimal ? 'text-[#2C2924]' : 'text-white'
               }`}
               title={target}
