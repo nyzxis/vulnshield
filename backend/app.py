@@ -7,7 +7,10 @@ import urllib3
 # Suppress insecure HTTPS warning for benign testing
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
-from .scanner import VulnerabilityScanner
+try:
+    from .scanner import VulnerabilityScanner
+except (ImportError, ValueError):
+    from scanner import VulnerabilityScanner
 
 app = FastAPI(
     title="VulnShield // Web Vulnerability & Penetration Auditor API",

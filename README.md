@@ -1,11 +1,13 @@
 # 🛡️ VULNSHIELD // Automated Web Vulnerability Scanner
 
+[![Live Demo](https://img.shields.io/badge/Live_Demo-vulnshield.vercel.app-10b981?style=for-the-badge&logo=vercel&logoColor=white)](https://vulnshield.vercel.app/)
 [![GitHub](https://img.shields.io/badge/GitHub-nyzxis%2Fvulnshield-10b981?style=for-the-badge&logo=github&logoColor=white)](https://github.com/nyzxis/vulnshield)
 [![Python](https://img.shields.io/badge/Python-3.12%2B-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.115%2B-009688?style=for-the-badge&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
 [![React](https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-v4.0-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
 
+> 🌐 **Live Demo**: **[https://vulnshield.vercel.app/](https://vulnshield.vercel.app/)**  
 > **Automated Web Security Posture Analysis & Heuristic Vulnerability Detection**  
 > Engineered by **Arfa Danial** ([@nyzxis](https://github.com/nyzxis)).
 

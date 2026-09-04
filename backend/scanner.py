@@ -5,13 +5,22 @@ from typing import Dict, Any, List, Optional
 import requests
 from bs4 import BeautifulSoup
 
-from .payloads import (
-    XSS_CANARIES,
-    SQLI_PROBES,
-    SQL_ERROR_PATTERNS,
-    SENSITIVE_FILES,
-    SECURITY_HEADERS,
-)
+try:
+    from .payloads import (
+        XSS_CANARIES,
+        SQLI_PROBES,
+        SQL_ERROR_PATTERNS,
+        SENSITIVE_FILES,
+        SECURITY_HEADERS,
+    )
+except (ImportError, ValueError):
+    from payloads import (
+        XSS_CANARIES,
+        SQLI_PROBES,
+        SQL_ERROR_PATTERNS,
+        SENSITIVE_FILES,
+        SECURITY_HEADERS,
+    )
 
 USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36 VulnShield/1.0"
 
