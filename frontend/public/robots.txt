@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://vulnshield.vercel.app/sitemap.xml

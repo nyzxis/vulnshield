@@ -17,7 +17,39 @@ export default function Navbar({
   const isMinimal = theme === 'minimalist';
 
   return (
-    <header className="sticky top-4 sm:top-6 z-50 px-4 sm:px-6 w-full max-w-7xl mx-auto transition-colors duration-150">
+    <header className="sticky top-2 sm:top-3 z-50 px-4 sm:px-6 w-full max-w-7xl mx-auto transition-colors duration-150">
+      {/* Top Breadcrumb & Suite Navigation Strip */}
+      <div className="mb-2 px-2 flex items-center justify-between font-mono text-[11px]">
+        <div className="flex items-center gap-1.5">
+          <a
+            href="https://nyzxis.vercel.app/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`hover:underline flex items-center gap-1 ${
+              isMinimal ? 'text-[#2C2924]/70 hover:text-[#2C2924]' : 'text-slate-400 hover:text-purple-400'
+            }`}
+          >
+            ✦ Arfa Danial / Portfolio
+          </a>
+          <span className="text-slate-500">›</span>
+          <span className="text-slate-500 hidden md:inline">Cybersecurity Suite</span>
+          <span className="text-slate-500 hidden md:inline">›</span>
+          <span className={`font-bold ${isMinimal ? 'text-[#2C2924]' : 'text-purple-400'}`}>VulnShield</span>
+        </div>
+
+        {/* Cross-Suite Switcher Menu */}
+        <div className="hidden sm:flex items-center gap-2 text-[10px]">
+          <span className="text-slate-500">Suite:</span>
+          <a href="https://apishield-pi.vercel.app/" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-cyan-400">APIShield</a>
+          <span className="text-slate-600">•</span>
+          <a href="https://malguard.vercel.app/" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-amber-400">MalGuard</a>
+          <span className="text-slate-600">•</span>
+          <a href="https://pwsec-nyz.vercel.app/" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-emerald-400">KeyVault</a>
+          <span className="text-slate-600">•</span>
+          <a href="https://phishingdetector-nyzxis.vercel.app/" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-rose-400">PhishGuard</a>
+        </div>
+      </div>
+
       <nav
         className={`w-full px-4 sm:px-6 py-3 rounded-full flex items-center justify-between gap-4 transition-colors duration-150 ${
           isMinimal

@@ -1,0 +1,18 @@
+# VulnShield // Automated Web Vulnerability Scanner & Posture Auditor
+
+> Official AI & LLM Context Manifest for https://vulnshield.vercel.app/
+
+## Project Information
+- **Name**: VulnShield
+- **Author**: Arfa Danial (@nyzxis)
+- **Author Portfolio**: https://nyzxis.vercel.app/
+- **Live Application**: https://vulnshield.vercel.app/
+- **GitHub**: https://github.com/nyzxis/vulnshield
+
+## Overview
+VulnShield is an automated web vulnerability assessment engine designed to audit modern web applications against the OWASP Top 10. It performs safe, non-destructive heuristic testing for Reflected Cross-Site Scripting (XSS), SQL Injection heuristics, missing critical security headers (HSTS, CSP, X-Frame-Options), cookie security, and open redirects.
+
+## Technical Specifications
+- **Backend Scanner**: Python 3.11, FastAPI, BeautifulSoup4, Requests, Regex
+- **Frontend UI**: React 19, TypeScript, Tailwind CSS v4, Lucide React
+- **OWASP Vectors Tested**: A01 (Broken Access Control), A02 (Cryptographic Failures / HSTS), A03 (Injection - SQLi & XSS), A05 (Security Misconfigurations).

@@ -1,16 +1,61 @@
-<!DOCTYPE html>
-<html lang="en" style="color-scheme: dark; background-color: #07090E;">
+<!doctype html>
+<html lang="en" class="theme-cyber">
   <head>
     <meta charset="UTF-8" />
-    <meta name="color-scheme" content="dark light" />
-    <meta name="theme-color" content="#07090E" id="meta-theme-color" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238b5cf6' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z'/%3E%3C/svg%3E" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>VULNSHIELD // Web Security & Vulnerability Auditor</title>
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://vulnshield.vercel.app/" />
+
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;0,6..72,700;1,6..72,400&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Space+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Primary SEO -->
+    <title>VulnShield // Automated Web Vulnerability Scanner &amp; Security Auditor</title>
+    <meta name="title" content="VulnShield // Automated Web Vulnerability Scanner &amp; Security Auditor" />
+    <meta name="description" content="VulnShield is an automated web vulnerability assessment engine auditing Reflected XSS, SQLi heuristics, and security headers by Arfa Danial (@nyzxis)." />
+    <meta name="author" content="Arfa Danial" />
+
+    <!-- OpenGraph / Social -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://vulnshield.vercel.app/" />
+    <meta property="og:title" content="VulnShield // Automated Web Vulnerability Scanner &amp; Security Auditor" />
+    <meta property="og:description" content="Automated web vulnerability assessment, Reflected XSS, SQLi heuristics, and security headers." />
+    <meta property="og:image" content="https://vulnshield.vercel.app/assets/og-image.svg" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://vulnshield.vercel.app/" />
+    <meta name="twitter:title" content="VulnShield // Automated Web Vulnerability Scanner &amp; Security Auditor" />
+    <meta name="twitter:description" content="Automated web vulnerability assessment by Arfa Danial (@nyzxis)." />
+    <meta name="twitter:image" content="https://vulnshield.vercel.app/assets/og-image.svg" />
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "VulnShield",
+      "applicationCategory": "SecurityApplication",
+      "operatingSystem": "All",
+      "url": "https://vulnshield.vercel.app/",
+      "author": {
+        "@type": "Person",
+        "name": "Arfa Danial",
+        "url": "https://nyzxis.vercel.app/"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "description": "Automated web application security scanner for OWASP Top 10 vulnerabilities, Reflected XSS canary tokens, SQL Injection heuristics, and HTTP security headers."
+    }
+    </script>
   </head>
-  <body class="min-h-screen" style="background-color: #07090E;">
+  <body class="min-h-screen bg-[#060713] text-slate-100 antialiased selection:bg-purple-500/30 selection:text-purple-200">
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
