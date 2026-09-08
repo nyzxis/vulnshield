@@ -47,6 +47,11 @@
   }
 }
 
+.font-defense {
+  font-family: 'Chivo', 'Space Grotesk', sans-serif;
+  letter-spacing: -0.02em;
+}
+
 /* SOC War Room Machinery Panels */
 .soc-panel {
   background: rgba(7, 12, 26, 0.92);

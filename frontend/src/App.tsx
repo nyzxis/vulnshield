@@ -136,7 +136,7 @@ export default function App() {
             </div>
 
             <h1
-              className={`text-3xl sm:text-4xl md:text-5xl font-black font-mono tracking-tight ${
+              className={`text-3xl sm:text-4xl md:text-5xl font-black font-defense tracking-wider uppercase ${
                 isMinimal ? 'text-[#0F172A]' : 'text-white'
               }`}
               style={{ textWrap: 'balance' }}
@@ -180,31 +180,39 @@ export default function App() {
           theme={theme}
         />
 
-        {/* Audit Overview & Posture Grade */}
-        <AuditOverview
-          result={result}
-          onReScan={() => handleRunScan()}
-          onOpenExportModal={() => setIsExportOpen(true)}
-          theme={theme}
-        />
+        {/* 2-Column SOC Command Center War Room Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          {/* Left Tactical Radar Deck: DEFCON Dial, Headers & Telemetry Log */}
+          <div className="lg:col-span-5 space-y-6">
+            {/* Audit Overview & Posture Grade */}
+            <AuditOverview
+              result={result}
+              onReScan={() => handleRunScan()}
+              onOpenExportModal={() => setIsExportOpen(true)}
+              theme={theme}
+            />
 
-        {/* HTTP Defense Security Headers Baseline Grid */}
-        <SecurityHeadersGrid
-          headers={result.security_headers}
-          theme={theme}
-        />
+            {/* HTTP Defense Security Headers Baseline Grid */}
+            <SecurityHeadersGrid
+              headers={result.security_headers}
+              theme={theme}
+            />
 
-        {/* Vulnerability Findings Dossier */}
-        <FindingsDossier
-          vulnerabilities={result.vulnerabilities}
-          theme={theme}
-        />
+            {/* Terminal Telemetry Log */}
+            <AuditTerminalLog
+              logs={result.logs}
+              theme={theme}
+            />
+          </div>
 
-        {/* Terminal Telemetry Log */}
-        <AuditTerminalLog
-          logs={result.logs}
-          theme={theme}
-        />
+          {/* Right Tactical Findings Deck: Incident Dossier */}
+          <div className="lg:col-span-7 space-y-6">
+            <FindingsDossier
+              vulnerabilities={result.vulnerabilities}
+              theme={theme}
+            />
+          </div>
+        </div>
       </main>
 
       {/* Export Report Modal */}
