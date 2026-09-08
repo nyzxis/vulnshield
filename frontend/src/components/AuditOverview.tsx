@@ -1,5 +1,5 @@
 import React from 'react';
-import { ShieldCheck, AlertCircle, Clock, Globe, FileDown, RefreshCw } from 'lucide-react';
+import { ShieldCheck, AlertCircle, Clock, Globe, FileDown, RefreshCw, Radar, ShieldAlert } from 'lucide-react';
 import { ScanResult } from '../types';
 
 interface AuditOverviewProps {
@@ -24,30 +24,58 @@ export default function AuditOverview({
   const strokeDashoffset = circumference - (score / 100) * circumference;
 
   const getScoreColor = () => {
-    if (score >= 85) return '#10b981'; // emerald
-    if (score >= 70) return '#06b6d4'; // cyan
+    if (score >= 85) return '#38bdf8'; // radar cyan
+    if (score >= 70) return '#3b82f6'; // cobalt blue
     if (score >= 50) return '#f59e0b'; // amber
-    return '#f43f5e'; // rose
+    return '#dc2626'; // threat crimson
   };
 
-  const getGradeBadgeClass = () => {
-    if (score >= 85) return 'bg-emerald-500/15 border-emerald-500/40 text-emerald-300';
-    if (score >= 70) return 'bg-cyan-500/15 border-cyan-500/40 text-cyan-300';
-    if (score >= 50) return 'bg-amber-500/15 border-amber-500/40 text-amber-300';
-    return 'bg-rose-500/15 border-rose-500/40 text-rose-300';
+  const getDefconStatus = () => {
+    if (score < 50) {
+      return {
+        level: 'DEFCON 1',
+        label: 'MAXIMUM ALERT',
+        badge: 'bg-rose-500/20 border-rose-500/50 text-rose-300 shadow-[0_0_16px_rgba(220,38,38,0.3)]',
+        desc: 'Critical vulnerabilities actively exposed. Intrusion vectors primed.',
+      };
+    }
+    if (score < 70) {
+      return {
+        level: 'DEFCON 2',
+        label: 'HIGH THREAT',
+        badge: 'bg-orange-500/20 border-orange-500/50 text-orange-300 shadow-[0_0_16px_rgba(249,115,22,0.3)]',
+        desc: 'High severity attack vectors present. Immediate remediation advised.',
+      };
+    }
+    if (score < 85) {
+      return {
+        level: 'DEFCON 3',
+        label: 'ELEVATED RISK',
+        badge: 'bg-amber-500/20 border-amber-500/50 text-amber-300 shadow-[0_0_16px_rgba(245,158,11,0.3)]',
+        desc: 'Missing key perimeter defense headers and configuration anomalies.',
+      };
+    }
+    return {
+      level: 'DEFCON 5',
+      label: 'NOMINAL DEFENSE',
+      badge: 'bg-blue-500/20 border-blue-500/50 text-blue-300 shadow-[0_0_16px_rgba(37,99,235,0.3)]',
+      desc: 'Robust perimeter defense. Automated intrusion vectors thwarted.',
+    };
   };
+
+  const defcon = getDefconStatus();
 
   return (
     <div
-      className={`rounded-2xl border p-5 sm:p-6 transition-all duration-150 ${
+      className={`rounded-2xl border p-5 sm:p-7 transition-all duration-150 ${
         isMinimal
-          ? 'minimalist-card'
-          : 'glass-panel shadow-[0_8px_32px_rgba(0,0,0,0.4)]'
+          ? 'bg-[#F8FAFC] border-[#CBD5E1]'
+          : 'soc-panel'
       }`}
     >
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
         {/* Left Column: Radial Posture Score Dial */}
-        <div className="lg:col-span-4 flex flex-col sm:flex-row items-center gap-5 justify-center lg:justify-start">
+        <div className="lg:col-span-4 flex flex-col sm:flex-row items-center gap-6 justify-center lg:justify-start">
           <div className="relative w-36 h-36 shrink-0 flex items-center justify-center">
             <svg className="w-full h-full -rotate-90" viewBox="0 0 140 140">
               {/* Background Track */}
@@ -56,8 +84,8 @@ export default function AuditOverview({
                 cy="70"
                 r={radius}
                 fill="none"
-                stroke={isMinimal ? '#D8D2C5' : 'rgba(255,255,255,0.08)'}
-                strokeWidth="10"
+                stroke={isMinimal ? '#CBD5E1' : 'rgba(37,99,235,0.12)'}
+                strokeWidth="11"
               />
               {/* Animated Value Arc */}
               <circle
@@ -66,13 +94,13 @@ export default function AuditOverview({
                 r={radius}
                 fill="none"
                 stroke={getScoreColor()}
-                strokeWidth="10"
+                strokeWidth="11"
                 strokeDasharray={circumference}
                 strokeDashoffset={strokeDashoffset}
                 strokeLinecap="round"
                 className="transition-all duration-1000 ease-out"
                 style={{
-                  filter: isMinimal ? 'none' : `drop-shadow(0 0 8px ${getScoreColor()}66)`,
+                  filter: isMinimal ? 'none' : `drop-shadow(0 0 10px ${getScoreColor()}88)`,
                 }}
               />
             </svg>
@@ -80,14 +108,14 @@ export default function AuditOverview({
             <div className="absolute inset-0 flex flex-col items-center justify-center">
               <span
                 className={`text-3xl font-black font-mono tracking-tighter ${
-                  isMinimal ? 'text-[#2C2924]' : 'text-white'
+                  isMinimal ? 'text-[#0F172A]' : 'text-white'
                 }`}
               >
                 {score}
               </span>
               <span
-                className={`text-[10px] uppercase font-mono tracking-wider ${
-                  isMinimal ? 'text-[#767066]' : 'text-white/40'
+                className={`text-[9px] uppercase font-mono tracking-widest ${
+                  isMinimal ? 'text-[#64748B]' : 'text-blue-400/70'
                 }`}
               >
                 Posture Score
@@ -95,24 +123,25 @@ export default function AuditOverview({
             </div>
           </div>
 
-          <div className="text-center sm:text-left space-y-1.5">
+          <div className="text-center sm:text-left space-y-2">
             <div className="flex items-center justify-center sm:justify-start gap-2">
               <span
-                className={`text-xl font-black font-mono px-2.5 py-0.5 rounded-lg border ${getGradeBadgeClass()}`}
+                className={`text-xs font-black font-mono px-3 py-1 rounded-lg border tracking-wider ${defcon.badge}`}
               >
-                GRADE {grade}
+                {defcon.level} • {defcon.label}
               </span>
             </div>
+
+            <div className="text-xs font-mono font-bold">
+              POSTURE GRADE: <span className="text-blue-400">CLASS-{grade}</span>
+            </div>
+
             <p
               className={`text-xs font-mono leading-relaxed max-w-[24ch] ${
-                isMinimal ? 'text-[#767066]' : 'text-white/50'
+                isMinimal ? 'text-[#64748B]' : 'text-slate-300'
               }`}
             >
-              {score >= 80
-                ? 'Strong defenses. Hardened against automated intrusion.'
-                : score >= 50
-                ? 'Moderate exposure. Remediate missing defense headers.'
-                : 'High vulnerability exposure. Immediate patching required.'}
+              {defcon.desc}
             </p>
           </div>
         </div>
@@ -120,45 +149,54 @@ export default function AuditOverview({
         {/* Center Column: Telemetry & Target Details */}
         <div
           className={`lg:col-span-5 border-y lg:border-y-0 lg:border-x py-4 lg:py-0 lg:px-6 space-y-3 ${
-            isMinimal ? 'border-[#D8D2C5]' : 'border-white/10'
+            isMinimal ? 'border-[#CBD5E1]' : 'border-blue-500/15'
           }`}
         >
-          <div className="flex items-center gap-2 min-w-0 max-w-full">
-            <Globe
-              className={`w-4 h-4 shrink-0 ${
-                isMinimal ? 'text-[#2C2924]' : 'text-emerald-400'
-              }`}
-            />
-            <span
-              className={`text-xs font-mono truncate min-w-0 flex-1 ${
-                isMinimal ? 'text-[#2C2924]' : 'text-white'
-              }`}
-              title={target}
-            >
-              {target}
+          <div className="space-y-1">
+            <span className={`text-[10px] uppercase font-mono tracking-wider block ${isMinimal ? 'text-[#64748B]' : 'text-blue-400/70'}`}>
+              Audited Surface Target:
             </span>
+            <div className="flex items-center gap-2 min-w-0 max-w-full">
+              <Globe
+                className={`w-4 h-4 shrink-0 ${
+                  isMinimal ? 'text-[#0F172A]' : 'text-blue-400'
+                }`}
+              />
+              <span
+                className={`text-xs font-mono font-bold truncate min-w-0 flex-1 ${
+                  isMinimal ? 'text-[#0F172A]' : 'text-white'
+                }`}
+                title={target}
+              >
+                {target}
+              </span>
+            </div>
           </div>
 
           <div className="grid grid-cols-2 gap-2 text-xs font-mono">
             <div
-              className={`p-2 rounded-lg border ${
+              className={`p-2.5 rounded-xl border ${
                 isMinimal
-                  ? 'bg-[#EAE5DB] border-[#D8D2C5] text-[#767066]'
-                  : 'bg-white/5 border-white/10 text-white/60'
+                  ? 'bg-[#FFFFFF] border-[#CBD5E1] text-[#0F172A]'
+                  : 'bg-[#040711] border-blue-500/20 text-slate-200'
               }`}
             >
-              <span className="block text-[9px] uppercase tracking-wider text-white/40">Audit Mode</span>
+              <span className={`block text-[9px] uppercase tracking-wider ${isMinimal ? 'text-[#64748B]' : 'text-blue-400/60'}`}>
+                Surveillance Mode
+              </span>
               <span className="font-semibold">{scan_mode}</span>
             </div>
 
             <div
-              className={`p-2 rounded-lg border ${
+              className={`p-2.5 rounded-xl border ${
                 isMinimal
-                  ? 'bg-[#EAE5DB] border-[#D8D2C5] text-[#767066]'
-                  : 'bg-white/5 border-white/10 text-white/60'
+                  ? 'bg-[#FFFFFF] border-[#CBD5E1] text-[#0F172A]'
+                  : 'bg-[#040711] border-blue-500/20 text-slate-200'
               }`}
             >
-              <span className="block text-[9px] uppercase tracking-wider text-white/40">Latency</span>
+              <span className={`block text-[9px] uppercase tracking-wider ${isMinimal ? 'text-[#64748B]' : 'text-blue-400/60'}`}>
+                Probe Latency
+              </span>
               <span className="font-semibold">{duration_seconds}s</span>
             </div>
           </div>
@@ -167,26 +205,26 @@ export default function AuditOverview({
           <div className="flex items-center gap-2 pt-1">
             <button
               onClick={onOpenExportModal}
-              className={`flex-1 flex items-center justify-center gap-1.5 py-2 px-3 rounded-lg border text-xs font-mono transition-all duration-150 active:scale-95 ${
+              className={`flex-1 flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl border text-xs font-mono font-bold transition-all duration-150 active:scale-95 shadow-md ${
                 isMinimal
-                  ? 'bg-[#2C2924] text-[#F4F1EA] hover:bg-[#3D3A34]'
-                  : 'bg-white/10 border-white/15 text-white hover:bg-white/20 hover:border-white/30'
+                  ? 'bg-[#0F172A] text-white hover:bg-[#1E293B]'
+                  : 'bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-500 text-white hover:from-blue-500 hover:to-cyan-400 shadow-[0_0_20px_rgba(37,99,235,0.35)]'
               }`}
             >
               <FileDown className="w-3.5 h-3.5" />
-              <span>Export Dossier</span>
+              <span>EXPORT WAR ROOM DOSSIER</span>
             </button>
 
             <button
               onClick={onReScan}
-              title="Re-run audit"
-              className={`p-2 rounded-lg border transition-all duration-150 active:scale-95 ${
+              title="Re-run audit vectors"
+              className={`p-2.5 rounded-xl border transition-all duration-150 active:scale-95 ${
                 isMinimal
-                  ? 'bg-[#EAE5DB] border-[#D8D2C5] text-[#2C2924] hover:bg-[#DFDACF]'
-                  : 'bg-white/5 border-white/10 text-white/70 hover:text-white hover:bg-white/10'
+                  ? 'bg-[#FFFFFF] border-[#CBD5E1] text-[#0F172A] hover:bg-[#E2E8F0]'
+                  : 'bg-[#040711] border-blue-500/20 text-slate-300 hover:text-blue-300 hover:border-blue-500/50'
               }`}
             >
-              <RefreshCw className="w-3.5 h-3.5" />
+              <RefreshCw className="w-4 h-4" />
             </button>
           </div>
         </div>
@@ -194,32 +232,32 @@ export default function AuditOverview({
         {/* Right Column: Severity Findings Breakdown */}
         <div className="lg:col-span-3 flex flex-col justify-center gap-2 font-mono">
           <span
-            className={`text-[10px] uppercase tracking-wider ${
-              isMinimal ? 'text-[#767066]' : 'text-white/40'
+            className={`text-[10px] uppercase tracking-wider font-bold ${
+              isMinimal ? 'text-[#64748B]' : 'text-blue-400/70'
             }`}
           >
-            Finding Breakdown
+            Tactical Findings Breakdown:
           </span>
 
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-2 gap-2">
-            <div className="flex items-center justify-between p-2 rounded-lg border bg-rose-500/10 border-rose-500/25 text-rose-400">
-              <span className="text-[10px] font-semibold uppercase">Critical</span>
-              <span className="text-sm font-bold">{severity_counts.CRITICAL}</span>
+            <div className="flex items-center justify-between p-2.5 rounded-xl border bg-rose-950/20 border-rose-500/30 text-rose-400">
+              <span className="text-[10px] font-bold uppercase">Critical</span>
+              <span className="text-sm font-black">{severity_counts.CRITICAL}</span>
             </div>
 
-            <div className="flex items-center justify-between p-2 rounded-lg border bg-amber-500/10 border-amber-500/25 text-amber-400">
-              <span className="text-[10px] font-semibold uppercase">High</span>
-              <span className="text-sm font-bold">{severity_counts.HIGH}</span>
+            <div className="flex items-center justify-between p-2.5 rounded-xl border bg-amber-950/20 border-amber-500/30 text-amber-400">
+              <span className="text-[10px] font-bold uppercase">High</span>
+              <span className="text-sm font-black">{severity_counts.HIGH}</span>
             </div>
 
-            <div className="flex items-center justify-between p-2 rounded-lg border bg-yellow-500/10 border-yellow-500/25 text-yellow-400">
-              <span className="text-[10px] font-semibold uppercase">Medium</span>
-              <span className="text-sm font-bold">{severity_counts.MEDIUM}</span>
+            <div className="flex items-center justify-between p-2.5 rounded-xl border bg-yellow-950/20 border-yellow-500/30 text-yellow-400">
+              <span className="text-[10px] font-bold uppercase">Medium</span>
+              <span className="text-sm font-black">{severity_counts.MEDIUM}</span>
             </div>
 
-            <div className="flex items-center justify-between p-2 rounded-lg border bg-cyan-500/10 border-cyan-500/25 text-cyan-400">
-              <span className="text-[10px] font-semibold uppercase">Low</span>
-              <span className="text-sm font-bold">{severity_counts.LOW}</span>
+            <div className="flex items-center justify-between p-2.5 rounded-xl border bg-blue-950/20 border-blue-500/30 text-blue-400">
+              <span className="text-[10px] font-bold uppercase">Low</span>
+              <span className="text-sm font-black">{severity_counts.LOW}</span>
             </div>
           </div>
         </div>

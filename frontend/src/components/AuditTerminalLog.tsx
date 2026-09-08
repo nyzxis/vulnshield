@@ -16,74 +16,75 @@ export default function AuditTerminalLog({ logs, theme }: AuditTerminalLogProps)
       case 'ALERT':
         return 'text-rose-400 font-bold';
       case 'SUCCESS':
-        return 'text-emerald-400 font-semibold';
+        return 'text-blue-400 font-bold';
       case 'ERROR':
         return 'text-rose-500 font-bold';
       default:
-        return isMinimal ? 'text-[#767066]' : 'text-cyan-400';
+        return isMinimal ? 'text-[#0F172A]' : 'text-cyan-400 font-medium';
     }
   };
 
   return (
     <div
       className={`rounded-2xl border transition-all duration-150 overflow-hidden ${
-        isMinimal ? 'minimalist-card' : 'glass-panel'
+        isMinimal ? 'bg-[#F8FAFC] border-[#CBD5E1]' : 'soc-panel'
       }`}
     >
       {/* Terminal Title Bar */}
       <div
         onClick={() => setIsOpen(!isOpen)}
-        className="p-4 flex items-center justify-between cursor-pointer select-none"
+        className="p-4 sm:p-5 flex items-center justify-between cursor-pointer select-none"
       >
         <div className="flex items-center gap-2.5">
           <div className="flex items-center gap-1.5 mr-2">
             <div className="w-2.5 h-2.5 rounded-full bg-rose-500/80" />
             <div className="w-2.5 h-2.5 rounded-full bg-amber-500/80" />
-            <div className="w-2.5 h-2.5 rounded-full bg-emerald-500/80" />
+            <div className="w-2.5 h-2.5 rounded-full bg-blue-500/80" />
           </div>
 
           <Terminal
-            className={`w-3.5 h-3.5 ${isMinimal ? 'text-[#2C2924]' : 'text-emerald-400'}`}
+            className={`w-4 h-4 ${isMinimal ? 'text-[#0F172A]' : 'text-blue-400'}`}
           />
           <span
-            className={`text-xs font-mono font-bold ${
-              isMinimal ? 'text-[#2C2924]' : 'text-white'
+            className={`text-xs font-mono font-bold tracking-wide ${
+              isMinimal ? 'text-[#0F172A]' : 'text-white'
             }`}
           >
-            Audit Telemetry Stream ({logs.length} events recorded)
+            WAR ROOM AUDIT TELEMETRY STREAM ({logs.length} EVENTS)
           </span>
         </div>
 
         <button
           type="button"
-          className={`p-1 rounded-md border text-xs font-mono ${
+          aria-label="Toggle terminal"
+          className={`p-1.5 rounded-lg border text-xs font-mono ${
             isMinimal
-              ? 'bg-[#EAE5DB] border-[#D8D2C5] text-[#2C2924]'
-              : 'bg-white/5 border-white/10 text-white/70'
+              ? 'bg-[#EEF2F6] border-[#CBD5E1] text-[#0F172A]'
+              : 'bg-[#040711] border-blue-500/20 text-blue-400'
           }`}
         >
-          {isOpen ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+          {isOpen ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
         </button>
       </div>
 
       {/* Terminal Output Area */}
       {isOpen && (
         <div
-          className={`p-4 font-mono text-[11px] leading-relaxed max-h-64 overflow-y-auto border-t space-y-1.5 ${
+          className={`p-4 sm:p-5 font-mono text-[11px] leading-relaxed max-h-64 overflow-y-auto border-t space-y-1.5 ${
             isMinimal
-              ? 'bg-[#2C2924] text-[#EBE7DF] border-[#D8D2C5]'
-              : 'bg-black/80 text-white/80 border-white/10'
+              ? 'bg-[#0F172A] text-[#F8FAFC] border-[#CBD5E1]'
+              : 'bg-[#03060E] text-slate-200 border-blue-500/20'
           }`}
         >
           {logs.map((l, i) => (
             <div key={i} className="flex items-start gap-2">
-              <span className="text-white/30 shrink-0">[{l.timestamp.toFixed(2)}s]</span>
+              <span className="text-white/30 shrink-0 select-none">[{l.timestamp.toFixed(2)}s]</span>
               <span className={`shrink-0 font-bold uppercase ${getStatusBadge(l.status)}`}>
                 [{l.phase}]
               </span>
               <span className="flex-1 break-all">{l.message}</span>
               {l.code && (
-                <span className="shrink-0 px-1.5 py-0.2 rounded bg-white/10 text-white/60 text-[10px]">
+                <span className="shrink-0 px-1.5 py-0.2 rounded bg-blue-500/15 border border-blue-500/25 text-blue-300 text-[10px]">
                   HTTP {l.code}
                 </span>
               )}

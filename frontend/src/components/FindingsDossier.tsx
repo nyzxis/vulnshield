@@ -48,15 +48,26 @@ export default function FindingsDossier({ vulnerabilities, theme }: FindingsDoss
     <div className="space-y-4">
       {/* Header and Filter Switcher */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-        <div className="flex items-center gap-2">
-          <Bug className={`w-4 h-4 ${isMinimal ? 'text-[#2C2924]' : 'text-emerald-400'}`} />
-          <h2
-            className={`text-sm sm:text-base font-bold font-mono uppercase tracking-wide ${
-              isMinimal ? 'text-[#2C2924]' : 'text-white'
+        <div className="flex items-center gap-2.5">
+          <div
+            className={`p-1.5 rounded-lg ${
+              isMinimal ? 'bg-[#E2E8F0] text-[#0F172A]' : 'bg-blue-500/15 text-blue-400 border border-blue-500/30'
             }`}
           >
-            Audit Findings Dossier ({vulnerabilities.length} Total Findings)
-          </h2>
+            <Bug className="w-4 h-4" />
+          </div>
+          <div>
+            <h2
+              className={`text-sm sm:text-base font-bold font-mono uppercase tracking-wide ${
+                isMinimal ? 'text-[#0F172A]' : 'text-white'
+              }`}
+            >
+              CLASSIFIED INCIDENT DOSSIER // VULNERABILITY AUDIT
+            </h2>
+            <p className={`text-[11px] font-mono ${isMinimal ? 'text-[#64748B]' : 'text-slate-400'}`}>
+              Categorized attack vectors &amp; automated proof-of-concept verification ({vulnerabilities.length} Findings)
+            </p>
+          </div>
         </div>
 
         {/* Severity Filter Pills */}
@@ -73,14 +84,14 @@ export default function FindingsDossier({ vulnerabilities, theme }: FindingsDoss
                 key={f}
                 type="button"
                 onClick={() => setActiveFilter(f)}
-                className={`px-2.5 py-1 rounded-md text-[10px] font-mono font-bold transition-all duration-150 ${
+                className={`px-3 py-1 rounded-lg text-[10px] font-mono font-bold transition-all duration-150 ${
                   activeFilter === f
                     ? isMinimal
-                      ? 'bg-[#2C2924] text-[#F4F1EA] shadow-sm'
-                      : 'bg-emerald-500/25 border border-emerald-500/50 text-emerald-300 shadow-[0_0_8px_rgba(16,185,129,0.3)]'
+                      ? 'bg-[#0F172A] text-white shadow-sm'
+                      : 'bg-blue-600 border border-blue-400 text-white shadow-[0_0_12px_rgba(37,99,235,0.4)]'
                     : isMinimal
-                    ? 'bg-[#F4F1EA] border border-[#D8D2C5] text-[#767066] hover:bg-[#EAE5DB]'
-                    : 'bg-white/5 border border-white/10 text-white/60 hover:text-white hover:bg-white/10'
+                    ? 'bg-[#FFFFFF] border border-[#CBD5E1] text-[#64748B] hover:bg-[#E2E8F0]'
+                    : 'bg-[#070C1A] border border-blue-500/20 text-slate-300 hover:text-blue-300 hover:bg-blue-500/10'
                 }`}
               >
                 {f} ({count})
@@ -95,7 +106,7 @@ export default function FindingsDossier({ vulnerabilities, theme }: FindingsDoss
         {filteredVulns.length === 0 ? (
           <div
             className={`p-8 rounded-2xl border text-center font-mono text-xs ${
-              isMinimal ? 'minimalist-card text-[#767066]' : 'glass-panel text-white/50'
+              isMinimal ? 'bg-[#F8FAFC] border-[#CBD5E1] text-[#64748B]' : 'soc-panel text-white/50'
             }`}
           >
             No security findings matching current filter selection.
@@ -109,8 +120,8 @@ export default function FindingsDossier({ vulnerabilities, theme }: FindingsDoss
                 key={vuln.id}
                 className={`rounded-2xl border transition-all duration-200 overflow-hidden ${
                   isMinimal
-                    ? 'minimalist-card'
-                    : 'glass-panel hover:border-white/20'
+                    ? 'bg-[#F8FAFC] border-[#CBD5E1]'
+                    : 'bg-[#070C1A] border-blue-500/20 hover:border-blue-500/40'
                 }`}
               >
                 {/* Finding Summary Bar */}
@@ -121,7 +132,7 @@ export default function FindingsDossier({ vulnerabilities, theme }: FindingsDoss
                   <div className="space-y-1.5">
                     <div className="flex flex-wrap items-center gap-2">
                       <span
-                        className={`text-[10px] font-bold font-mono px-2 py-0.5 rounded-full border ${getSeverityBadge(
+                        className={`text-[10px] font-bold font-mono px-2 py-0.5 rounded border ${getSeverityBadge(
                           vuln.severity
                         )}`}
                       >
@@ -130,7 +141,7 @@ export default function FindingsDossier({ vulnerabilities, theme }: FindingsDoss
 
                       <span
                         className={`text-[10px] uppercase font-mono tracking-wider ${
-                          isMinimal ? 'text-[#767066]' : 'text-white/40'
+                          isMinimal ? 'text-[#64748B]' : 'text-blue-400/60'
                         }`}
                       >
                         {vuln.category}
@@ -139,7 +150,7 @@ export default function FindingsDossier({ vulnerabilities, theme }: FindingsDoss
 
                     <h3
                       className={`text-sm sm:text-base font-bold font-mono ${
-                        isMinimal ? 'text-[#2C2924]' : 'text-white'
+                        isMinimal ? 'text-[#0F172A]' : 'text-white'
                       }`}
                     >
                       {vuln.title}
@@ -149,10 +160,10 @@ export default function FindingsDossier({ vulnerabilities, theme }: FindingsDoss
                   <button
                     type="button"
                     aria-label="Toggle details"
-                    className={`p-1.5 rounded-lg border transition-colors shrink-0 ${
+                    className={`p-2 rounded-lg border transition-colors shrink-0 ${
                       isMinimal
-                        ? 'bg-[#EAE5DB] border-[#D8D2C5] text-[#2C2924]'
-                        : 'bg-white/5 border-white/10 text-white/70 hover:text-white'
+                        ? 'bg-[#EEF2F6] border-[#CBD5E1] text-[#0F172A]'
+                        : 'bg-[#040711] border-blue-500/25 text-blue-400 hover:text-white'
                     }`}
                   >
                     {isExpanded ? (
@@ -166,22 +177,22 @@ export default function FindingsDossier({ vulnerabilities, theme }: FindingsDoss
                 {/* Expanded Details Dossier */}
                 {isExpanded && (
                   <div
-                    className={`px-4 pb-5 sm:px-5 border-t space-y-4 text-xs font-mono animate-[fadeIn_0.2s_ease_forwards] ${
-                      isMinimal ? 'border-[#D8D2C5] bg-[#EAE5DB]/40' : 'border-white/10 bg-black/30'
+                    className={`px-4 pb-5 sm:px-6 border-t space-y-4 text-xs font-mono animate-[fadeIn_0.2s_ease_forwards] ${
+                      isMinimal ? 'border-[#CBD5E1] bg-[#EEF2F6]/50' : 'border-blue-500/15 bg-[#040711]/70'
                     }`}
                   >
                     {/* Description */}
                     <div className="pt-4 space-y-1">
                       <span
                         className={`text-[10px] uppercase tracking-wider block font-bold ${
-                          isMinimal ? 'text-[#767066]' : 'text-white/40'
+                          isMinimal ? 'text-[#64748B]' : 'text-blue-400/70'
                         }`}
                       >
                         Vulnerability Summary:
                       </span>
                       <p
                         className={`leading-relaxed ${
-                          isMinimal ? 'text-[#2C2924]' : 'text-slate-200'
+                          isMinimal ? 'text-[#0F172A]' : 'text-slate-200'
                         }`}
                       >
                         {vuln.description}
@@ -192,14 +203,14 @@ export default function FindingsDossier({ vulnerabilities, theme }: FindingsDoss
                     <div className="space-y-1">
                       <span
                         className={`text-[10px] uppercase tracking-wider block font-bold ${
-                          isMinimal ? 'text-[#767066]' : 'text-white/40'
+                          isMinimal ? 'text-[#64748B]' : 'text-blue-400/70'
                         }`}
                       >
                         Threat Impact:
                       </span>
                       <p
                         className={`leading-relaxed ${
-                          isMinimal ? 'text-[#767066]' : 'text-white/70'
+                          isMinimal ? 'text-[#64748B]' : 'text-white/70'
                         }`}
                       >
                         {vuln.impact}
@@ -210,16 +221,16 @@ export default function FindingsDossier({ vulnerabilities, theme }: FindingsDoss
                     <div className="space-y-1">
                       <span
                         className={`text-[10px] uppercase tracking-wider block font-bold ${
-                          isMinimal ? 'text-[#767066]' : 'text-white/40'
+                          isMinimal ? 'text-[#64748B]' : 'text-blue-400/70'
                         }`}
                       >
                         Telemetry Evidence / Verification:
                       </span>
                       <div
-                        className={`p-2.5 rounded-lg border font-mono text-[11px] break-all ${
+                        className={`p-3 rounded-xl border font-mono text-[11px] break-all ${
                           isMinimal
-                            ? 'bg-[#F4F1EA] border-[#D8D2C5] text-[#2C2924]'
-                            : 'bg-black/60 border-white/10 text-emerald-300'
+                            ? 'bg-[#FFFFFF] border-[#CBD5E1] text-[#0F172A]'
+                            : 'bg-[#040711] border-blue-500/25 text-cyan-300'
                         }`}
                       >
                         {vuln.proof}
@@ -231,7 +242,7 @@ export default function FindingsDossier({ vulnerabilities, theme }: FindingsDoss
                       <div className="flex items-center justify-between">
                         <span
                           className={`text-[10px] uppercase tracking-wider font-bold ${
-                            isMinimal ? 'text-[#767066]' : 'text-white/40'
+                            isMinimal ? 'text-[#64748B]' : 'text-blue-400/70'
                           }`}
                         >
                           Defensive Remediation Protocol:
@@ -240,17 +251,17 @@ export default function FindingsDossier({ vulnerabilities, theme }: FindingsDoss
                         <button
                           type="button"
                           onClick={() => handleCopyRemediation(vuln.id, vuln.remediation)}
-                          className={`flex items-center gap-1 px-2.5 py-1 rounded-md border text-[10px] font-mono transition-all active:scale-95 ${
+                          className={`flex items-center gap-1.5 px-2.5 py-1 rounded border text-[10px] font-mono transition-all active:scale-95 ${
                             copiedId === vuln.id
-                              ? 'bg-emerald-500/20 border-emerald-500/40 text-emerald-300'
+                              ? 'bg-blue-500/20 border-blue-500/40 text-blue-300'
                               : isMinimal
-                              ? 'bg-[#F4F1EA] border-[#D8D2C5] text-[#2C2924] hover:bg-[#DFDACF]'
-                              : 'bg-white/5 border-white/10 text-white/70 hover:text-white hover:bg-white/10'
+                              ? 'bg-[#FFFFFF] border-[#CBD5E1] text-[#0F172A] hover:bg-[#E2E8F0]'
+                              : 'bg-black/40 border-blue-500/20 text-slate-300 hover:text-blue-300 hover:border-blue-500/40'
                           }`}
                         >
                           {copiedId === vuln.id ? (
                             <>
-                              <Check className="w-3 h-3 text-emerald-400" />
+                              <Check className="w-3 h-3 text-blue-400" />
                               <span>Copied</span>
                             </>
                           ) : (
@@ -263,10 +274,10 @@ export default function FindingsDossier({ vulnerabilities, theme }: FindingsDoss
                       </div>
 
                       <div
-                        className={`p-3 rounded-lg border leading-relaxed ${
+                        className={`p-3 rounded-xl border leading-relaxed ${
                           isMinimal
-                            ? 'bg-[#DEE7DC]/50 border-[#C7D7C4] text-[#2A522E]'
-                            : 'bg-emerald-950/20 border-emerald-500/20 text-emerald-200'
+                            ? 'bg-[#EEF2F6] border-[#CBD5E1] text-[#0F172A]'
+                            : 'bg-blue-950/25 border-blue-500/30 text-blue-200'
                         }`}
                       >
                         {vuln.remediation}

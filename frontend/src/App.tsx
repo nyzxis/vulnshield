@@ -46,12 +46,12 @@ export default function App() {
     document.documentElement.classList.toggle('theme-minimalist', isMinimal);
     document.body.classList.toggle('theme-minimalist', isMinimal);
     document.documentElement.style.colorScheme = isMinimal ? 'light' : 'dark';
-    document.documentElement.style.backgroundColor = isMinimal ? '#EBE7DF' : '#07090E';
-    document.body.style.backgroundColor = isMinimal ? '#EBE7DF' : '#07090E';
+    document.documentElement.style.backgroundColor = isMinimal ? '#EEF2F6' : '#040711';
+    document.body.style.backgroundColor = isMinimal ? '#EEF2F6' : '#040711';
 
     const metaTheme = document.getElementById('meta-theme-color');
     if (metaTheme) {
-      metaTheme.setAttribute('content', isMinimal ? '#EBE7DF' : '#07090E');
+      metaTheme.setAttribute('content', isMinimal ? '#EEF2F6' : '#040711');
     }
   }, [isMinimal]);
 
@@ -90,26 +90,18 @@ export default function App() {
 
   return (
     <div
-      className={`min-h-[100dvh] flex flex-col antialiased transition-colors duration-150 ${
+      className={`min-h-[100dvh] flex flex-col antialiased transition-colors duration-150 soc-radar-grid ${
         isMinimal
-          ? 'bg-[#EBE7DF] text-[#2C2924] selection:bg-[#DEE7DC] selection:text-[#2A522E] font-sans-clean theme-minimalist'
-          : 'bg-[#07090E] text-slate-100 selection:bg-emerald-500/30 selection:text-emerald-200'
+          ? 'bg-[#EEF2F6] text-[#0F172A] selection:bg-blue-100 selection:text-blue-900 font-sans-clean theme-minimalist'
+          : 'bg-[#040711] text-slate-100 selection:bg-blue-500/30 selection:text-blue-200'
       }`}
     >
       {/* Precision Hardware Cursor */}
       <CustomCursor theme={theme} />
 
-      {/* Background Cyber Grid - persistent GPU layer */}
-      <div
-        className={`fixed inset-0 cyber-grid-bg pointer-events-none z-0 transition-opacity duration-200 ${
-          isMinimal ? 'opacity-0' : 'opacity-35'
-        }`}
-        style={{ willChange: 'opacity' }}
-      />
-
       {/* Top Ambient Glow */}
       <div
-        className={`fixed top-0 left-1/2 -translate-x-1/2 w-[850px] h-[350px] bg-[radial-gradient(ellipse_at_top,rgba(16,185,129,0.12)_0%,rgba(6,182,212,0.04)_50%,transparent_70%)] pointer-events-none z-0 transition-opacity duration-200 ${
+        className={`fixed top-0 left-1/2 -translate-x-1/2 w-[900px] h-[360px] bg-[radial-gradient(ellipse_at_top,rgba(37,99,235,0.18)_0%,rgba(56,189,248,0.06)_50%,transparent_70%)] pointer-events-none z-0 transition-opacity duration-200 ${
           isMinimal ? 'opacity-0' : 'opacity-100'
         }`}
         style={{ willChange: 'opacity' }}
@@ -128,50 +120,50 @@ export default function App() {
         {/* Top Hero / Intro Banner */}
         <div
           className={`flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 ${
-            isMinimal ? 'border-b border-[#D8D2C5]' : 'border-b border-white/10'
+            isMinimal ? 'border-b border-[#CBD5E1]' : 'border-b border-blue-500/20'
           }`}
         >
           <div>
             <div
-              className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono mb-2.5 ${
+              className={`inline-flex items-center gap-2 px-3 py-1 rounded-lg text-xs font-mono mb-2.5 ${
                 isMinimal
-                  ? 'border border-[#D8D2C5] bg-[#F4F1EA] text-[#767066]'
-                  : 'border border-emerald-500/30 bg-emerald-500/10 text-emerald-300'
+                  ? 'border border-[#CBD5E1] bg-[#FFFFFF] text-[#0F172A]'
+                  : 'border border-blue-500/30 bg-blue-500/10 text-blue-300 shadow-[0_0_12px_rgba(37,99,235,0.25)]'
               }`}
             >
-              <Cpu className="w-3.5 h-3.5" />
+              <Cpu className="w-3.5 h-3.5 text-blue-400" />
               <span>OWASP VULNERABILITY MATRIX • REFLECTED XSS &amp; SQLI PROBER</span>
             </div>
 
             <h1
-              className={`text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-[-0.03em] ${
-                isMinimal ? 'font-serif-editorial text-[#2C2924]' : 'font-mono text-white'
+              className={`text-3xl sm:text-4xl md:text-5xl font-black font-mono tracking-tight ${
+                isMinimal ? 'text-[#0F172A]' : 'text-white'
               }`}
               style={{ textWrap: 'balance' }}
             >
-              Web Vulnerability Scanner
+              VulnShield <span className="text-blue-400 font-light">//</span> War Room
             </h1>
 
             <p
-              className={`text-xs sm:text-sm mt-1.5 max-w-[65ch] leading-relaxed ${
-                isMinimal ? 'text-[#767066]' : 'text-white/50 font-mono'
+              className={`text-xs sm:text-sm mt-1.5 max-w-[68ch] leading-relaxed font-mono ${
+                isMinimal ? 'text-[#64748B]' : 'text-slate-400'
               }`}
               style={{ textWrap: 'pretty' }}
             >
-              Automated penetration auditing for Cross-Site Scripting (XSS), SQL injection error heuristics, security headers, and sensitive file disclosures.
+              Global Attack Surface Auditor &amp; Automated Penetration Radar. Executes safe canaries to unmask Cross-Site Scripting (XSS), SQL injection error leaks, missing HTTP perimeter headers, and critical endpoint exposures.
             </p>
           </div>
 
           <div
-            className={`hidden md:flex flex-col items-end text-right text-xs font-mono p-3.5 rounded-xl border ${
-              isMinimal ? 'minimalist-card text-[#767066]' : 'glass-panel text-white/50'
+            className={`hidden md:flex flex-col items-end text-right text-xs font-mono p-4 rounded-xl border ${
+              isMinimal ? 'bg-[#FFFFFF] border-[#CBD5E1] text-[#64748B]' : 'bg-[#070C1A] border-blue-500/25 text-slate-300'
             }`}
           >
-            <div className="flex items-center gap-1.5 font-bold mb-0.5">
-              <Shield className={`w-3.5 h-3.5 ${isMinimal ? 'text-[#2C2924]' : 'text-emerald-400'}`} />
-              <span className={isMinimal ? 'text-[#2C2924]' : 'text-white'}>Non-Destructive Canaries</span>
+            <div className="flex items-center gap-2 font-bold mb-1">
+              <Shield className={`w-4 h-4 ${isMinimal ? 'text-[#0F172A]' : 'text-blue-400'}`} />
+              <span className={isMinimal ? 'text-[#0F172A]' : 'text-white'}>NON-DESTRUCTIVE CANARIES</span>
             </div>
-            <span>Safe audit &amp; reflection detection</span>
+            <span className="text-[10px] opacity-70">Safe fuzzing &amp; reflection heuristics</span>
           </div>
         </div>
 
@@ -227,13 +219,23 @@ export default function App() {
       <footer
         className={`relative z-10 py-6 text-center font-mono text-xs transition-colors duration-150 ${
           isMinimal
-            ? 'border-t border-[#D8D2C5] bg-[#E2DDD5] text-[#767066]'
-            : 'border-t border-white/10 text-white/40'
+            ? 'border-t border-[#CBD5E1] bg-[#E2E8F0] text-[#64748B]'
+            : 'border-t border-blue-500/15 bg-[#03060E] text-slate-500'
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <span>VulnShield • Built by Arfa Danial</span>
-          <span>Stack: Python • Requests • BeautifulSoup4 • FastAPI • React 19 • Tailwind CSS</span>
+          <div>
+            VULNSHIELD // Engineered by <strong className={isMinimal ? 'text-[#0F172A]' : 'text-slate-200'}>Arfa Danial</strong> (<a href="https://github.com/nyzxis" target="_blank" rel="noopener noreferrer" className="hover:underline">@nyzxis</a>)
+          </div>
+          <div className="flex items-center gap-4">
+            <a href="https://nyzxis.vercel.app/" target="_blank" rel="noopener noreferrer" className="hover:underline">
+              Portfolio
+            </a>
+            <span>•</span>
+            <a href="https://github.com/nyzxis/vulnshield" target="_blank" rel="noopener noreferrer" className="hover:underline">
+              GitHub
+            </a>
+          </div>
         </div>
       </footer>
     </div>
