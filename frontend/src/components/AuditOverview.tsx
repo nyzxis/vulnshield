@@ -67,16 +67,16 @@ export default function AuditOverview({
 
   return (
     <div
-      className={`rounded-2xl border p-5 sm:p-7 transition-all duration-150 ${
+      className={`rounded-2xl border p-5 sm:p-6 transition-all duration-150 ${
         isMinimal
           ? 'bg-[#F8FAFC] border-[#CBD5E1]'
-          : 'soc-panel'
+          : 'soc-panel border-blue-500/20'
       }`}
     >
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
-        {/* Left Column: Radial Posture Score Dial */}
-        <div className="lg:col-span-4 flex flex-col sm:flex-row items-center gap-6 justify-center lg:justify-start">
-          <div className="relative w-36 h-36 shrink-0 flex items-center justify-center">
+      <div className="flex flex-col gap-5">
+        {/* Section 1: Radial Posture Score Dial & DEFCON Level */}
+        <div className="flex flex-col sm:flex-row items-center gap-6 pb-5 border-b border-inherit">
+          <div className="relative w-32 h-32 shrink-0 flex items-center justify-center">
             <svg className="w-full h-full -rotate-90" viewBox="0 0 140 140">
               {/* Background Track */}
               <circle
@@ -123,7 +123,7 @@ export default function AuditOverview({
             </div>
           </div>
 
-          <div className="text-center sm:text-left space-y-2">
+          <div className="text-center sm:text-left space-y-2 flex-1 min-w-0">
             <div className="flex items-center justify-center sm:justify-start gap-2">
               <span
                 className={`text-xs font-black font-mono px-3 py-1 rounded-lg border tracking-wider ${defcon.badge}`}
@@ -137,7 +137,7 @@ export default function AuditOverview({
             </div>
 
             <p
-              className={`text-xs font-mono leading-relaxed max-w-[24ch] ${
+              className={`text-xs font-mono leading-relaxed ${
                 isMinimal ? 'text-[#64748B]' : 'text-slate-300'
               }`}
             >
@@ -146,13 +146,9 @@ export default function AuditOverview({
           </div>
         </div>
 
-        {/* Center Column: Telemetry & Target Details */}
-        <div
-          className={`lg:col-span-5 border-y lg:border-y-0 lg:border-x py-4 lg:py-0 lg:px-6 space-y-3 ${
-            isMinimal ? 'border-[#CBD5E1]' : 'border-blue-500/15'
-          }`}
-        >
-          <div className="space-y-1">
+        {/* Section 2: Telemetry & Target Details */}
+        <div className="space-y-3 pb-5 border-b border-inherit min-w-0">
+          <div className="space-y-1 min-w-0">
             <span className={`text-[10px] uppercase font-mono tracking-wider block ${isMinimal ? 'text-[#64748B]' : 'text-blue-400/70'}`}>
               Audited Surface Target:
             </span>
@@ -200,6 +196,39 @@ export default function AuditOverview({
               <span className="font-semibold">{duration_seconds}s</span>
             </div>
           </div>
+        </div>
+
+        {/* Section 3: Severity Findings Breakdown & Actions */}
+        <div className="space-y-3 font-mono">
+          <span
+            className={`text-[10px] uppercase tracking-wider font-bold block ${
+              isMinimal ? 'text-[#64748B]' : 'text-blue-400/70'
+            }`}
+          >
+            Tactical Findings Breakdown:
+          </span>
+
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+            <div className="flex items-center justify-between p-2 rounded-xl border bg-rose-950/20 border-rose-500/30 text-rose-400">
+              <span className="text-[10px] font-bold uppercase">Crit</span>
+              <span className="text-sm font-black">{severity_counts.CRITICAL}</span>
+            </div>
+
+            <div className="flex items-center justify-between p-2 rounded-xl border bg-amber-950/20 border-amber-500/30 text-amber-400">
+              <span className="text-[10px] font-bold uppercase">High</span>
+              <span className="text-sm font-black">{severity_counts.HIGH}</span>
+            </div>
+
+            <div className="flex items-center justify-between p-2 rounded-xl border bg-yellow-950/20 border-yellow-500/30 text-yellow-400">
+              <span className="text-[10px] font-bold uppercase">Med</span>
+              <span className="text-sm font-black">{severity_counts.MEDIUM}</span>
+            </div>
+
+            <div className="flex items-center justify-between p-2 rounded-xl border bg-blue-950/20 border-blue-500/30 text-blue-400">
+              <span className="text-[10px] font-bold uppercase">Low</span>
+              <span className="text-sm font-black">{severity_counts.LOW}</span>
+            </div>
+          </div>
 
           {/* Action Buttons */}
           <div className="flex items-center gap-2 pt-1">
@@ -218,7 +247,7 @@ export default function AuditOverview({
             <button
               onClick={onReScan}
               title="Re-run audit vectors"
-              className={`p-2.5 rounded-xl border transition-all duration-150 active:scale-95 ${
+              className={`p-2.5 rounded-xl border transition-all duration-150 active:scale-95 shrink-0 ${
                 isMinimal
                   ? 'bg-[#FFFFFF] border-[#CBD5E1] text-[#0F172A] hover:bg-[#E2E8F0]'
                   : 'bg-[#040711] border-blue-500/20 text-slate-300 hover:text-blue-300 hover:border-blue-500/50'
@@ -226,39 +255,6 @@ export default function AuditOverview({
             >
               <RefreshCw className="w-4 h-4" />
             </button>
-          </div>
-        </div>
-
-        {/* Right Column: Severity Findings Breakdown */}
-        <div className="lg:col-span-3 flex flex-col justify-center gap-2 font-mono">
-          <span
-            className={`text-[10px] uppercase tracking-wider font-bold ${
-              isMinimal ? 'text-[#64748B]' : 'text-blue-400/70'
-            }`}
-          >
-            Tactical Findings Breakdown:
-          </span>
-
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-2 gap-2">
-            <div className="flex items-center justify-between p-2.5 rounded-xl border bg-rose-950/20 border-rose-500/30 text-rose-400">
-              <span className="text-[10px] font-bold uppercase">Critical</span>
-              <span className="text-sm font-black">{severity_counts.CRITICAL}</span>
-            </div>
-
-            <div className="flex items-center justify-between p-2.5 rounded-xl border bg-amber-950/20 border-amber-500/30 text-amber-400">
-              <span className="text-[10px] font-bold uppercase">High</span>
-              <span className="text-sm font-black">{severity_counts.HIGH}</span>
-            </div>
-
-            <div className="flex items-center justify-between p-2.5 rounded-xl border bg-yellow-950/20 border-yellow-500/30 text-yellow-400">
-              <span className="text-[10px] font-bold uppercase">Medium</span>
-              <span className="text-sm font-black">{severity_counts.MEDIUM}</span>
-            </div>
-
-            <div className="flex items-center justify-between p-2.5 rounded-xl border bg-blue-950/20 border-blue-500/30 text-blue-400">
-              <span className="text-[10px] font-bold uppercase">Low</span>
-              <span className="text-sm font-black">{severity_counts.LOW}</span>
-            </div>
           </div>
         </div>
       </div>

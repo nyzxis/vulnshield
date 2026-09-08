@@ -81,7 +81,7 @@ export default function TargetInputBar({
                 onChange={(e) => onTargetChange(e.target.value)}
                 placeholder="Specify target domain or URL (e.g. testphp.vulnweb.com or https://example.com)..."
                 disabled={loading}
-                className={`w-full bg-transparent text-xs sm:text-sm font-mono outline-none ${
+                className={`w-full h-full py-1 bg-transparent text-xs sm:text-sm font-mono outline-none ${
                   isMinimal
                     ? 'text-[#0F172A] placeholder:text-[#94A3B8]'
                     : 'text-white placeholder:text-white/35'
